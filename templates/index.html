@@ -47,7 +47,25 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
+        .info-box > :not(h2) {
+            display: none; /* esconde os parágrafos e listas */
+            margin-top: 10px;
+        }
 
+        .info-box h2 {
+            cursor: pointer;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+        .info-box h2:hover {
+            background-color: #e0e0e0;
+        }
+
+        .info-box.active > :not(h2) {
+            display: block;
+        }
         label {
             display: block;
             font-weight: 600;
@@ -57,7 +75,9 @@
         }
 
         textarea {
-            width: 100%;
+            display: block;
+            width: 96%;
+            margin: 0 auto; /* centraliza */
             height: 150px;
             border-radius: 8px;
             border: 1px solid #cbd5e1;
@@ -65,7 +85,9 @@
             resize: none;
             font-size: 15px;
             transition: border-color 0.3s;
+            box-sizing: border-box;
         }
+
 
         textarea:focus {
             outline: none;
@@ -225,3 +247,27 @@
     </div>
 </body>
 </html>
+<script>
+// Ao carregar, esconde todo conteúdo das info-box (menos o h2)
+document.querySelectorAll(".info-box").forEach(box => {
+  const children = Array.from(box.children).filter(el => el.tagName !== "H2");
+  children.forEach(el => el.style.display = "none"); // oculta tudo abaixo do h2
+
+  // adiciona o comportamento de clique
+  box.querySelector("h2").addEventListener("click", () => {
+    const isHidden = children[0].style.display === "none";
+    children.forEach(el => {
+      if (isHidden) {
+        // mostra respeitando o display original
+        if (el.tagName === "UL") {
+          el.style.display = "grid"; // mantém seu layout original
+        } else {
+          el.style.display = "block";
+        }
+      } else {
+        el.style.display = "none";
+      }
+    });
+  });
+});
+</script>
