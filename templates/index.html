@@ -11,16 +11,18 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
-            padding: 50px 20px;
             margin: 0;
+            font-size: .75rem;
         }
 
         .container {
             background: #ffffff;
+            margin: 1rem;
             border-radius: 15px;
-            padding: 30px 40px;
+            padding: 2rem;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
             width: 650px;
+            height: 100%;
             animation: fadeIn 0.6s ease;
         }
 
@@ -47,25 +49,7 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        .info-box > :not(h2) {
-            display: none; /* esconde os parágrafos e listas */
-            margin-top: 10px;
-        }
 
-        .info-box h2 {
-            cursor: pointer;
-            background-color: #f4f4f4;
-            padding: 10px;
-            border-radius: 8px;
-            transition: background 0.3s;
-        }
-        .info-box h2:hover {
-            background-color: #e0e0e0;
-        }
-
-        .info-box.active > :not(h2) {
-            display: block;
-        }
         label {
             display: block;
             font-weight: 600;
@@ -87,7 +71,6 @@
             transition: border-color 0.3s;
             box-sizing: border-box;
         }
-
 
         textarea:focus {
             outline: none;
@@ -178,15 +161,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔒 Anonimizador de Texto</h1>
-
+        <h1>🪪Segurança de dados em prompts</h1>
         <div class="info-box">
             <h2>O que é um <strong>Prompt?</strong></h2>
             <p>Um <strong>prompt</strong> é o texto ou instrução que você fornece a um sistema de inteligência artificial para gerar uma resposta. 
             Ele representa o ponto de partida da interação, permitindo que o sistema compreenda o contexto e realize tarefas como tradução, 
             resumo, análise, etc.</strong>.</p>
         </div>
-
+        
         <div class="info-box">
             <h2>Por que Anonimizar Dados no Prompt?</h2>
             <p class="lead">
@@ -232,6 +214,10 @@
             </p>
         </div>
 
+    </div>
+    <div class="container">
+        <h1>🔒 Anonimizador de Texto</h1>
+
         <form method="POST">
             <label for="prompt">Digite o texto a ser anonimizado:</label>
             <textarea id="prompt" name="prompt" placeholder="Exemplo: Trabalho na Google e meu CPF é 123.456.789-00"></textarea>
@@ -245,29 +231,77 @@
             <pre>{{ anonimizado|safe }}</pre>
         {% endif %}
     </div>
+    <div class="container">
+        <h1>✍️Boas práticas</h1>
+        <div class="info-box">
+            <p class="lead">
+                Entenda o que são dados, dados pessoais e dados pessoais sensíveis conforme a LGPD:
+            </p>
+
+            <ul class="benefits">
+                <li>
+                    <div>
+                        <strong>Dado:</strong>
+                        É qualquer informação que pode ser registrada, independentemente do formato — como textos, números, imagens, sons ou qualquer outro conteúdo que possa ser armazenado e processado.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Dado pessoal:</strong>
+                        É a informação relacionada a uma pessoa natural identificada ou identificável, como nome, CPF, RG, endereço, telefone, e-mail ou localização.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Dado pessoal sensível:</strong>
+                        São dados que revelam aspectos íntimos e que, se expostos, podem causar discriminação, como origem racial ou étnica, convicções religiosas, opinião política, filiação sindical, dados genéticos, biométricos, de saúde ou vida sexual.
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <strong>Proteção e consentimento:</strong>
+                        O tratamento de dados pessoais e sensíveis deve ocorrer apenas com base legal e consentimento do titular, garantindo transparência, segurança e respeito à privacidade.
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <p class="lead">
+                Segue uma lista de erros comuns ao usar IAs, e como prevenir o envio de dados sensíveis:
+            </p>
+
+            <ul class="benefits">
+                <li>
+                    <div class="emoji" aria-hidden>🕵️</div>
+                    <div>
+                        <strong>Uso de dados pessoais:</strong>
+                        Troque nomes e documentos reais por algo genérico. Enviar dados como seu nome, RG e/ou CPF deixa a informação visível para outros.
+                    </div>
+                </li>
+                <li>
+                    <div class="emoji" aria-hidden>👁️</div>
+                    <div>
+                        <strong>Dados relacionados:</strong>
+                        Informações como nome de empresas, cargos e outros, também podem ser utilizados por modelos para identificá-lo. Sempre generalize ou remova essas informações.
+                    </div>
+                </li>
+                <li>
+                    <div class="emoji" aria-hidden>📄</div>
+                    <div>
+                        <strong>Uso de documentos:</strong>
+                        Documentos e arquivos também tem dados acessíveis para certos modelos. Ao enviar arquivos, remova informações que possam ser relacionadas a você.
+                    </div>
+                </li>
+                <li>
+                    <div class="emoji" aria-hidden>📸</div>
+                    <div>
+                        <strong>Uso de imagens:</strong>
+                        Tome cuidado ao enviar fotos e vídeos. Alguns modelos conseguem identificar objetos, compras, pessoas, e até alguns endereços!
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
-<script>
-// Ao carregar, esconde todo conteúdo das info-box (menos o h2)
-document.querySelectorAll(".info-box").forEach(box => {
-  const children = Array.from(box.children).filter(el => el.tagName !== "H2");
-  children.forEach(el => el.style.display = "none"); // oculta tudo abaixo do h2
-
-  // adiciona o comportamento de clique
-  box.querySelector("h2").addEventListener("click", () => {
-    const isHidden = children[0].style.display === "none";
-    children.forEach(el => {
-      if (isHidden) {
-        // mostra respeitando o display original
-        if (el.tagName === "UL") {
-          el.style.display = "grid"; // mantém seu layout original
-        } else {
-          el.style.display = "block";
-        }
-      } else {
-        el.style.display = "none";
-      }
-    });
-  });
-});
-</script>
