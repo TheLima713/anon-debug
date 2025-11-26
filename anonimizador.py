@@ -3,7 +3,7 @@ import spacy
 import re
 
 app = Flask(__name__)
-nlp = spacy.load("pt_core_news_lg")
+nlp = spacy.load("pt_core_news_sm")
 
 def add_span_if_free(spans, start, end, label):
     for s, e, _ in spans:
